@@ -1,0 +1,132 @@
+[mypy]
+# Basic configuration
+python_version = 3.12
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+# Plugins
+plugins = pydantic.mypy
+
+# Exclude patterns - focus mypy strict checking on production code only
+exclude = tests/.*|test_.*|examples/.*|demo_.*\.py|debug_.*\.py|manual_.*\.py
+
+# Pydantic plugin configuration
+[pydantic-mypy]
+init_forbid_extra = false
+init_typed = true
+warn_required_dynamic_aliases = true
+
+# Third-party library overrides - Common libraries without stubs
+[mypy-dynaconf.*]
+ignore_missing_imports = true
+
+[mypy-rich.*]
+ignore_missing_imports = true
+
+[mypy-typer.*]
+ignore_missing_imports = true
+
+[mypy-loguru.*]
+ignore_missing_imports = true
+
+[mypy-icecream.*]
+ignore_missing_imports = true
+
+[mypy-glom.*]
+ignore_missing_imports = true
+
+[mypy-humanize.*]
+ignore_missing_imports = true
+
+# Testing libraries
+[mypy-pytest.*]
+ignore_missing_imports = true
+
+[mypy-factory.*]
+ignore_missing_imports = true
+ignore_errors = true
+
+[mypy-faker.*]
+ignore_missing_imports = true
+ignore_errors = true
+
+# Data format libraries
+[mypy-yaml.*]
+ignore_missing_imports = true
+
+[mypy-toml.*]
+ignore_missing_imports = true
+
+# Database and storage libraries
+[mypy-motor.*]
+ignore_missing_imports = true
+
+[mypy-pymongo.*]
+ignore_missing_imports = true
+
+[mypy-redis.*]
+ignore_missing_imports = true
+
+[mypy-aioredis.*]
+ignore_missing_imports = true
+
+[mypy-asyncpg.*]
+ignore_missing_imports = true
+
+[mypy-sqlalchemy.*]
+ignore_missing_imports = true
+
+[mypy-bson.*]
+ignore_missing_imports = true
+
+# Network libraries
+[mypy-httpx.*]
+ignore_missing_imports = true
+
+[mypy-websockets.*]
+ignore_missing_imports = true
+
+[mypy-aiofiles.*]
+ignore_missing_imports = true
+
+# Utility libraries
+[mypy-boltons.*]
+ignore_missing_imports = true
+
+[mypy-toolz.*]
+ignore_missing_imports = true
+
+[mypy-funcy.*]
+ignore_missing_imports = true
+
+[mypy-cytoolz.*]
+ignore_missing_imports = true
+
+# Date/time libraries
+[mypy-dateutil.*]
+ignore_missing_imports = true
+
+[mypy-pendulum.*]
+ignore_missing_imports = true
+
+# Data processing libraries
+[mypy-pyarrow.*]
+ignore_missing_imports = true
+
+[mypy-pydantic_extra_types.*]
+ignore_missing_imports = true
+
+# Dependency injection
+[mypy-dependency_injector.*]
+ignore_missing_imports = true

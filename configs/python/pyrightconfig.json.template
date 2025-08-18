@@ -1,0 +1,28 @@
+{
+  "include": [
+    "{{PACKAGE_DIRS}}"
+  ],
+  "exclude": [
+    "legacy",
+    "tests",
+    "**/__pycache__",
+    "**/.pytest_cache",
+    "build",
+    "dist",
+    ".venv",
+    "venv"
+  ],
+  "pythonVersion": "3.12",
+  "typeCheckingMode": "basic",
+  "reportMissingTypeStubs": false,
+  "reportUnknownMemberType": "none",
+  "reportUnknownArgumentType": "none",
+  "reportUnknownVariableType": false,
+  "reportUnknownParameterType": "none",
+  "reportCallIssue": false,
+  "reportOptionalCall": false,
+  "reportGeneralTypeIssues": false,
+  "reportAttributeAccessIssue": false,
+  "reportImportCycles": false,
+  "reportMissingImports": false
+}
