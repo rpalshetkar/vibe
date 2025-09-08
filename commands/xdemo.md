@@ -1,0 +1,12 @@
+This is command to create demo script which follows @demo decorator on test functions
+- Always create the files under tests/demos folder
+- file must be always prefixed with demo_
+- file must make use of @demoable module to see how to decorate the demo well
+- Should use Typer library and refer to other latest demo_ example which we must have created
+- Show small usage example for each test re how the end user would call the function
+- Show the Console rich output re how the whole things would
+- Demo is all folks need to see how they need to write and what the output looks like
+- Don't show too many debug log statements. Show pretty json
+- Show also small code snippets
+- Show one section at a time and pause before you move to next section. Organize the pagignation smart way
+- xds demo {module} should link to this typer command file
