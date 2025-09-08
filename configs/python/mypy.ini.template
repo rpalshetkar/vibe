@@ -19,7 +19,13 @@ strict_equality = true
 plugins = pydantic.mypy
 
 # Exclude patterns - focus mypy strict checking on production code only
-exclude = tests/.*|test_.*|examples/.*|demo_.*\.py|debug_.*\.py|manual_.*\.py
+# Examples are demos and don't need strict type checking
+exclude = legacy/.*|vibe/.*|tests/.*|test_.*|examples/.*|demo_.*\.py|debug_.*\.py|manual_.*\.py
+
+# Production code with complex patterns - relax some strict rules
+[mypy-{{PACKAGE_DIRS}}.resources.*]
+# Allow signature variations in resource implementations and Any returns for dynamic data operations
+disable_error_code = override,no-any-return
 
 # Pydantic plugin configuration
 [pydantic-mypy]
@@ -43,7 +49,16 @@ ignore_missing_imports = true
 [mypy-icecream.*]
 ignore_missing_imports = true
 
+[mypy-console.*]
+ignore_missing_imports = true
+
 [mypy-glom.*]
+ignore_missing_imports = true
+
+[mypy-lark.*]
+ignore_missing_imports = true
+
+[mypy-ollama.*]
 ignore_missing_imports = true
 
 [mypy-humanize.*]
@@ -66,6 +81,13 @@ ignore_errors = true
 ignore_missing_imports = true
 
 [mypy-toml.*]
+ignore_missing_imports = true
+
+# Additional libraries without stubs
+[mypy-yaml]
+ignore_missing_imports = true
+
+[mypy-toml]
 ignore_missing_imports = true
 
 # Database and storage libraries

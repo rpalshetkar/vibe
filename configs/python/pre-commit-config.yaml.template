@@ -1,0 +1,202 @@
+# Pre-commit hooks configuration for {{PROJECT_NAME}} project
+# Aligned with project standards: ruff.toml, mypy.ini, pyproject.toml
+# https://pre-commit.com/
+
+default_language_version:
+  python: python3.12
+
+repos:
+  # =============================================================================
+  # Python Code Quality & Formatting
+  # =============================================================================
+
+  # Ruff - Fast Python linter and formatter (replaces flake8, black, isort, etc.)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.6
+    hooks:
+      - id: ruff
+        name: ruff-lint
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+        name: ruff-format
+
+  # MyPy - Static type checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.14.1
+    hooks:
+      - id: mypy
+        name: mypy-type-check
+        args: [--config-file=mypy.ini]
+        additional_dependencies:
+          - pydantic>=2.0
+          - types-PyYAML
+          - types-toml
+          - types-python-dateutil
+        exclude: ^(tests/|examples/)
+        pass_filenames: false
+
+  # =============================================================================
+  # Security & Safety Checks
+  # =============================================================================
+
+  # Bandit - Security vulnerability scanner
+  - repo: https://github.com/PyCQA/bandit
+    rev: "1.8.0"
+    hooks:
+      - id: bandit
+        args: [-ll, --skip, "B101,B108,B301,B601,B602,B607,B608"]
+        exclude: ^(tests/|examples/)
+
+  # Detect secrets
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ["--baseline", ".secrets.baseline"]
+
+  # =============================================================================
+  # YAML, JSON, TOML, and Config Files
+  # =============================================================================
+
+  # YAML formatting and validation
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        types_or: [yaml, json]
+        args: [--tab-width=2, --single-quote=false]
+
+  # YAML linting
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        args:
+          [
+            -d,
+            "{extends: relaxed, rules: {line-length: {max: 120}, comments-indentation: disable}}",
+          ]
+
+  # TOML validation
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-toml
+
+  # =============================================================================
+  # Markdown & Documentation
+  # =============================================================================
+
+  # Markdown linting
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.16.0
+    hooks:
+      - id: markdownlint-cli2
+        name: markdownlint
+        args: [--fix]
+        exclude: ^.claudify/
+
+  # =============================================================================
+  # General File Hygiene
+  # =============================================================================
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      # File content checks
+      - id: check-added-large-files
+        args: [--maxkb=1000]
+      - id: check-ast
+      - id: check-builtin-literals
+      - id: check-case-conflict
+      - id: check-docstring-first
+        exclude: ^tests/
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: check-xml
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+
+      # File formatting
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+
+      # Python specific
+      - id: debug-statements
+        exclude: ^examples/
+      # Removed name-tests-test as we have legitimate factory/fixture files in tests/
+
+      # Git/Development
+      - id: forbid-new-submodules
+      - id: no-commit-to-branch
+        args: [--branch, main, --branch, master]
+
+  # =============================================================================
+  # Jupyter Notebooks (if you have any)
+  # =============================================================================
+
+  - repo: https://github.com/nbQA-dev/nbQA
+    rev: 1.9.1
+    hooks:
+      - id: nbqa-ruff
+        args: [--fix]
+      - id: nbqa-mypy
+
+  # =============================================================================
+  # Shell Scripts
+  # =============================================================================
+
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+
+  # =============================================================================
+  # Custom Hooks for {{PROJECT_NAME}} Project Standards
+  # =============================================================================
+
+  - repo: local
+    hooks:
+      # Validate variable naming conventions
+      - id: validate-naming
+        name: Check naming conventions
+        entry: .claudify/hooks/validate-naming.py
+        language: script
+        types: [python]
+
+  # =============================================================================
+  # Commit Message Validation
+  # =============================================================================
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.1.0
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+
+# Configuration
+fail_fast: false
+# Global exclude pattern - applies to all hooks unless overridden
+exclude: |
+  (?x)^(
+    legacy/.*|
+    \.git/.*|
+    \.mypy_cache/.*|
+    \.pytest_cache/.*|
+    \.ruff_cache/.*|
+    __pycache__/.*|
+    \.venv/.*|
+    venv/.*|
+    build/.*|
+    dist/.*|
+    .*\.egg-info/.*|
+    \.secrets\.baseline|
+    uv\.lock
+  )$

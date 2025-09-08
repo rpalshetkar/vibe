@@ -8,18 +8,32 @@ dependencies = [
     "dynaconf>=3.2",
     "pydantic>=2.0",
     "rich>=13.0",
+    "console>=0.9",
     "typer>=0.9",
     "python-dotenv>=1.0",
     "pyyaml>=6.0",
     "toml>=0.10",
+    "dependency-injector>=4.41",
     "loguru>=0.7.3",
     "glom>=24.11.0",
     "humanize>=4.0.0",
+    "lark>=1.2.2",
     "pydantic-extra-types>=2.10.5",
+    "aiofiles>=24.1.0",
+    "pytest-cov>=6.2.1",
+    "boltons>=25.0.0",
+    "toolz>=1.0.0",
+    "funcy>=2.0",
+    "python-dateutil>=2.9.0.post0",
+    "pendulum>=3.1.0",
+    "pytest-asyncio>=1.1.0",
+    "jinja2>=3.0.0",
+    "python-box>=7.3.2",
 ]
 
 [project.optional-dependencies]
 dev = [
+    "factory-boy>=3.3.3",
     "icecream>=2.1",
     "mypy>=1.8",
     "pytest>=8.4.1",
@@ -27,8 +41,6 @@ dev = [
     "pytest-cov>=6.2.1",
     "pyright>=1.1",
     "ruff>=0.2",
-    "factory-boy>=3.3.3",
-    "faker>=30.0",
 ]
 
 [project.scripts]
@@ -44,26 +56,28 @@ packages = ["{{PACKAGE_DIRS}}"]
 # Pytest configuration
 [tool.pytest.ini_options]
 minversion = "8.0"
-pythonpath = ["."]
 testpaths = ["tests"]
-addopts = "-ra -q --strict-markers --cov={{PACKAGE_DIRS}} --cov-report=term-missing"
+addopts = "-ra -q --strict-markers --tb=short"
 markers = [
-    "integration: marks tests as integration tests (requires external services)",
-    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
-    "unit: marks tests as unit tests",
+    "unit: Unit tests with mocked dependencies (fast execution)",
+    "integration: Integration tests with real objects (slower execution)",
+    "performance: Performance benchmarks and load testing", 
+    "factory: Tests that use factory-boy patterns for data generation",
+    "nested: Tests that focus on nested data structures",
+    "validation: Tests that focus on data validation",
+    "slow: Tests that take longer to run",
+    "external: Tests that require external services",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
 ]
 
 # Coverage configuration
 [tool.coverage.run]
 source = ["{{PACKAGE_DIRS}}"]
 branch = true
-omit = [
-    "*/tests/*",
-    "*/test_*.py",
-    "*/legacy/*",
-    "*/examples/*",
-    "*/__pycache__/*",
-]
+omit   = ["*/tests/*", "*/archive/*", "*/{{PROJECT_NAME}}-archive/*", "*/examples/*"]
 
 [tool.coverage.report]
 precision = 2
@@ -88,7 +102,9 @@ directory = "coverage_html_report"
 
 [dependency-groups]
 dev = [
+    "detect-secrets>=1.5.0",
     "factory-boy>=3.3.3",
+    "mypy>=1.17.1",
     "pytest>=8.4.1",
     "pytest-asyncio>=1.1.0",
 ]

@@ -1,28 +1,18 @@
 {
   "recommendations": [
     "ms-python.python",
-    "ms-python.mypy-type-checker",
+    "ms-python.vscode-pylance",
     "charliermarsh.ruff",
-    "ms-python.pylint",
-    "ms-toolsai.jupyter",
-    "ms-vscode.vscode-json",
-    "redhat.vscode-yaml",
-    "tamasfe.even-better-toml",
-    "davidanson.vscode-markdownlint",
+    "ms-python.mypy-type-checker",
     "yzhang.markdown-all-in-one",
-    "github.vscode-github-actions",
-    "eamodio.gitlens",
+    "bierner.markdown-preview-github-styles",
+    "davidanson.vscode-markdownlint",
+    "bierner.markdown-mermaid",
+    "shd101wyy.markdown-preview-enhanced",
+    "mushan.vscode-paste-image",
     "ms-vscode.test-adapter-converter",
     "littlefoxteam.vscode-python-test-adapter",
-    "njpwerner.autodocstring",
-    "kevinrose.vsc-python-indent",
-    "wholroyd.jinja",
-    "ms-vscode-remote.remote-containers",
-    "gruntfuggly.todo-tree",
-    "streetsidesoftware.code-spell-checker"
-  ],
-  "unwantedRecommendations": [
-    "ms-python.flake8",
-    "ms-python.black-formatter"
+    "redhat.vscode-yaml",
+    "tamasfe.even-better-toml"
   ]
 }

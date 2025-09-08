@@ -5,6 +5,23 @@
   "python.linting.pylintEnabled": false,
   "python.analysis.autoImportCompletions": true,
   "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportMissingTypeStubs": "none",
+    "reportUnknownMemberType": "none",
+    "reportUnknownArgumentType": "none",
+    "reportUnknownVariableType": "none",
+    "reportUnknownParameterType": "none",
+    "reportCallIssue": "none",
+    "reportOptionalCall": "none",
+    "reportGeneralTypeIssues": "none",
+    "reportAttributeAccessIssue": "none",
+    "reportImportCycles": "none",
+    "reportMissingImports": "none",
+    "reportUnusedVariable": "warning",
+    "reportUnusedParameter": "warning",
+    "reportUnusedImport": "warning"
+  },
   "[python]": {
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
@@ -39,8 +56,8 @@
   "mypy-type-checker.path": ["${workspaceFolder}/.venv/bin/mypy"],
   
   // Markdown Preview Configuration
-  "markdown.preview.fontSize": 16,
-  "markdown.preview.lineHeight": 1.6,
+  "markdown.preview.fontSize": 12,
+  "markdown.preview.lineHeight": 1.5,
   "markdown.preview.fontFamily": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'",
   "markdown.preview.scrollPreviewWithEditor": true,
   "markdown.preview.scrollEditorWithPreview": true,

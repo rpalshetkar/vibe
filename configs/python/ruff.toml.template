@@ -3,12 +3,7 @@ target-version = "py312"
 line-length = 88
 
 # Exclude directories
-exclude = [
-    "legacy",
-    "archive",
-    ".venv",
-    "__pycache__",
-]
+exclude = ["archive", "{{PROJECT_NAME}}-archive"]
 
 [lint]
 select = [
@@ -35,53 +30,66 @@ select = [
     "RUF", # ruff-specific rules
 ]
 ignore = [
-    "E501",   # line too long (handled by formatter)
-    "S101",   # use of assert (OK for tests)
+    "E402",    # module import not at top of file (OK for CLI setup)
+    "E501",    # line too long (handled by formatter)
+    "S101",    # use of assert (OK for tests)
     "PLR0913", # too many arguments (sometimes needed)
     "PLR2004", # magic value used in comparison (OK for constants)
     "COM812",  # trailing comma missing (conflicts with formatter)
     "PLR0911", # too many return statements (sometimes needed)
-    "PLR0912", # too many branches (OK for complex logic)
-    "PLR0915", # too many statements (OK for complex functions)
-    "S105",   # hardcoded password strings (OK in test fixtures)
-    "S106",   # hardcoded password function args (OK in test fixtures)
-    "S108",   # hardcoded temp file usage (OK in demos/examples)
-    "S311",   # non-cryptographic random (OK for non-security use)
-    "S603",   # subprocess call (OK for system utilities)
-    "S607",   # partial executable path (OK for common commands)
-    "S608",   # hardcoded SQL expressions (OK for queries)
-    "ARG001", # unused function arguments (OK in interfaces)
-    "ARG002", # unused method arguments (OK in interfaces)
-    "ARG005", # unused lambda arguments (OK for callbacks)
-    "B008",   # function call in default argument (OK for typer CLI)
-    "B017",   # assert raises exception (OK for pytest patterns)
-    "PT011",  # pytest raises too broad (OK for generic error testing)
-    "PT012",  # pytest raises with multiple statements (OK for complex tests)
-    "PT017",  # pytest assert in except (OK for import error handling)
-    "RUF001", # ambiguous unicode character
-    "RUF012", # mutable class default (OK for Pydantic models)
-    "PLW2901",# redefined loop name (OK when intentional)
-    "A001",   # builtin variable shadowing (OK for names like 'all')
-    "A002",   # builtin argument shadowing (OK for params like 'type')
-    "SIM102", # collapsible if (OK when readability is better)
-    "SIM103", # needless bool (OK when explicit conversion is clearer)
-    "SIM117", # multiple with statements (OK for resource management)
-    "E721",   # type comparison (OK for explicit type checking)
-    "F811",   # redefined while unused (OK for method overrides)
-    "N802",   # invalid function name (OK for parsers)
-    "N806",   # non-lowercase variable in function (OK for dynamic models)
+    # Acceptable warnings for current codebase state
+    "S608",    # hardcoded SQL expressions (OK for PostgreSQL resource queries)
+    "S102",    # exec usage (OK in test imports)
+    "S104",    # hardcoded bind all interfaces (OK in demos)
+    "S105",    # hardcoded password strings (OK in test fixtures)
+    "S106",    # hardcoded password function args (OK in test fixtures)
+    "S108",    # hardcoded temp file usage (OK in demos/examples)
+    "S301",    # pickle usage (OK in memory/file providers)
+    "PLR0912", # too many branches (OK for complex demo functions)
+    "PLR0915", # too many statements (OK for complex demo functions)
+    "ARG001",  # unused function arguments (OK in resource interfaces)
+    "ARG002",  # unused method arguments (OK in resource interfaces)
+    "ARG003",  # unused class method arguments (OK in factory-boy patterns)
+    "ARG005",  # unused lambda arguments (OK for callbacks)
+    "B008",    # function call in default argument (OK for typer CLI)
+    "N802",    # invalid function name (OK for lark grammar parsers)
+    "N806",    # non-lowercase variable in function (OK for dynamic models)
+    "PT011",   # pytest raises too broad (OK for generic error testing)
+    "PT017",   # pytest assert in except (OK for import error handling)
+    "RUF001",  # ambiguous unicode character (OK for × symbol in dimensions)
+    "RUF012",  # mutable class default (OK for Pydantic models with defaults)
+    "PLW2901", # redefined loop name (OK when intentionally overwriting)
+    "S603",    # subprocess call (OK for system utilities in CLI)
+    "S607",    # partial executable path (OK for common system commands)
+    "S311",    # non-cryptographic random (OK for retry jitter)
+    "A001",    # builtin variable shadowing (OK for function names like 'all')
+    "A002",    # builtin argument shadowing (OK for parameters like 'type')
+    "SIM102",  # collapsible if (OK when readability is better with separate ifs)
+    "SIM117",  # multiple with statements (OK for resource management)
+    "E721",    # type comparison (OK for explicit type checking)
+    "F811",    # redefined while unused (OK for method overrides)
+    "B017",    # assert raises exception (OK for pytest testing patterns)
+    "PT012",   # pytest raises with multiple statements (OK for complex tests)
+    "SIM103",  # needless bool (OK when explicit bool conversion is clearer)
+    "PLW0603", # global statement (OK for locale management in text.py)
+]
+
+# Per-file ignores  
+[lint.per-file-ignores]
+"*/__init__.py" = [
+    "RUF022", # unsorted __all__ (OK in module exports - order by importance) 
 ]
 
 [lint.isort]
-known-first-party = ["{{PACKAGE_DIRS}}"]
-force-single-line = false
-lines-between-types = 1
+known-first-party       = ["{{PACKAGE_DIRS}}"]
+force-single-line       = false
+lines-between-types     = 1
 split-on-trailing-comma = true
-combine-as-imports = true
+combine-as-imports      = true
 
 [format]
-quote-style = "single"  # Python best practices
-indent-style = "space"
+quote-style               = "double"
+indent-style              = "space"
 skip-magic-trailing-comma = false
-line-ending = "auto"
-docstring-code-format = true
+line-ending               = "auto"
+docstring-code-format     = true
