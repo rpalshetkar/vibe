@@ -48,3 +48,8 @@ Save as `claudify/[module]/prd-[feature].md`
 - Target junior developer comprehension
 - Be explicit and unambiguous
 - Focus on WHAT, not HOW
+
+## Standards References
+- Python Standards: `_shared/python-standards.md`
+- Testing Patterns: `_shared/testing-standards.md`
+- File Formats: `_shared/file-formats.md`

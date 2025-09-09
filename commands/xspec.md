@@ -109,7 +109,10 @@ Save as `claudify/[module]/features-[prd].md`
 - Identify hidden complexities early
 - Consider technical debt implications
 - Balance ideal vs pragmatic solutions
-- Document decisions and rationale
 - Keep descriptions concise (<60 chars)
 - Focus on WHAT, not HOW
-- Maintain traceability to PRD
+
+## Standards References
+- Python Standards: `_shared/python-standards.md`
+- Testing Patterns: `_shared/testing-standards.md`
+- File Formats: `_shared/file-formats.md`

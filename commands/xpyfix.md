@@ -222,8 +222,11 @@ Type Coverage: 78% → 91%
 - Fix automatically when safe
 - Never break working code
 - Maintain test coverage
-- Follow Python standards strictly
-- Ask before major refactors
+- Follow Python standards strictly (see `_shared/python-standards.md`)
 - Use mypy.ini for third-party library issues
 - Never pollute source with `# type: ignore` for imports
-- Keep configuration centralized
+
+## Standards References
+- Python Standards: `_shared/python-standards.md`
+- Testing Patterns: `_shared/testing-standards.md`
+- File Formats: `_shared/file-formats.md`

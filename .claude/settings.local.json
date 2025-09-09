@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(git add:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Read(//Users/rrp/dev/xds/**)",
+      "Bash(git commit:*)",
+      "Bash(tree:*)",
+      "Bash(find:*)"
     ],
     "additionalDirectories": [
       "/private/tmp/test_project",

@@ -66,7 +66,7 @@ Ask targeted questions to validate approach:
 - Items needing clarification
 ```
 
-Save as `vibe/analysis-[topic].md`
+Save as `sandbox/analysis/[topic]-analysis.md`
 
 ## Key Principles
 - Think deeply before proposing
@@ -74,3 +74,8 @@ Save as `vibe/analysis-[topic].md`
 - Balance ideal vs pragmatic
 - Document reasoning clearly
 - Seek validation on approach
+
+## Standards References
+- Python Standards: `_shared/python-standards.md`
+- Testing Patterns: `_shared/testing-standards.md`
+- File Formats: `_shared/file-formats.md`

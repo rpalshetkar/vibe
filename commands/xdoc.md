@@ -163,7 +163,11 @@ pytest tests/test_module.py
 - **Auto-organize**: Create folder structure automatically
 - **Update smartly**: Fix technical details, preserve descriptions
 - **Comprehensive**: Cover all significant code per module
-- **Navigable**: Clear links between related documents
+
+## Standards References
+- Python Standards: `_shared/python-standards.md`
+- Testing Patterns: `_shared/testing-standards.md`
+- File Formats: `_shared/file-formats.md`
 
 ## Example Module Discovery
 ```

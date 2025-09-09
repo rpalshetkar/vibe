@@ -111,15 +111,11 @@ addopts = "--cov --cov-report=term-missing"
 ```
 
 ## Key Standards
+See `_shared/python-standards.md` for complete requirements:
 - **Python**: 3.12+ only
 - **Package Manager**: uv only
-- **Formatter**: ruff
-- **Type Checker**: mypy --strict
 - **Testing**: pytest with coverage + factory-boy
-- **Test Data**: factory-boy for fixture generation
 - **Structure**: Direct modules, no src folder
-- **Tests**: Mirror module tree structure
-- **No pip/poetry/pipenv**
 
 ## Confirmation Points
 1. After each configuration choice
@@ -130,10 +126,14 @@ addopts = "--cov --cov-report=term-missing"
 ## Output
 - Complete Python project structure
 - All tools configured and verified
-- Tests passing
-- Type checking clean
+- Tests passing and type checking clean
 - README with setup instructions
-- Optional: GitHub repository created and code pushed
+- Optional: GitHub repository created
+
+## Standards References
+- Python Standards: `_shared/python-standards.md`
+- Testing Patterns: `_shared/testing-standards.md`
+- File Formats: `_shared/file-formats.md`
 
 ## GitHub Integration (Optional)
 

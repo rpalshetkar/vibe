@@ -51,8 +51,8 @@ When all sub-tasks done:
 ## Key Rules
 - **One sub-task at a time** - no parallel work
 - **Tests first always** - TDD is mandatory
-- **Factory-boy for test data** - centralized, reusable test fixtures
-- **xpyfix after code** - auto-fix quality issues
+- **Factory-boy for test data** - see `_shared/testing-standards.md`
+- **xpyfix after code** - see `_shared/python-standards.md` for quality checks
 - **Stop and wait** - user approval between tasks
 - **Commit per parent** - not per sub-task
 - **Clean commits** - no temporary code
@@ -112,3 +112,8 @@ def test_multiple_users():
 
 ## Output
 Updates `claudify/[module]/tasks-*.md` with progress
+
+## Standards References
+- Python Standards: `_shared/python-standards.md`
+- Testing Patterns: `_shared/testing-standards.md`
+- File Formats: `_shared/file-formats.md`
