@@ -1,7 +1,7 @@
 # xdemo - Interactive Demo Generator
 
 ## Purpose
-Create interactive demo scripts that showcase module functionality with rich console output, pagination, and @demoable decorators.
+Create interactive demo scripts that showcase module functionality with rich console output, pagination, and @demoable decorators. **Emphasizes data organization and reusable components to prevent code bloat and maintain clean architecture.**
 
 ## Process
 

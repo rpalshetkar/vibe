@@ -40,18 +40,8 @@ After consultation, extract features with:
 - Risk assessment
 - Effort estimation [S/M/L/XL]
 
-### 3. Feature Acronyms
-Use meaningful, consistent prefixes:
-- `AU` - Authentication & Authorization
-- `UM` - User Management  
-- `DM` - Data Management
-- `API` - Integration & APIs
-- `SYS` - System Core
-- `SEC` - Security
-- `PERF` - Performance
-- `UI` - User Interface
-- `RPT` - Reporting
-- `NTF` - Notifications
+### 3. Feature Naming
+Use feature acronyms from `_shared/vibe-standards.md`
 
 ### 4. Interactive Validation
 Present extracted features for review:
@@ -60,49 +50,9 @@ Present extracted features for review:
 - "Is the prioritization correct?"
 - "Should any features be re-scoped?"
 
-## Output Format
-```markdown
-# Features: [Product]
-
-## Context
-- Architecture: [Monolithic/Microservices/Hybrid]
-- Stack: [Technologies]
-- Constraints: [Key limitations]
-
-## Priority 0 (MVP - Must Have)
-- AU-LOGIN: User authentication [M]
-  - Dependencies: None
-  - Risk: Low
-  - Notes: OAuth2 integration required
-  
-- DM-IMPORT: CSV/JSON import [L]
-  - Dependencies: AU-LOGIN
-  - Risk: Medium
-  - Notes: 10MB file size limit
-
-## Priority 1 (Should Have)  
-- AU-2FA: Two-factor auth [S]
-  - Dependencies: AU-LOGIN
-  - Risk: Low
-  - Notes: SMS and TOTP support
-
-## Priority 2 (Nice to Have)
-- PERF-CACHE: Advanced caching [XL]
-  - Dependencies: All data features
-  - Risk: High
-  - Notes: Redis implementation
-
-## Feature Dependencies Map
-- AU-LOGIN → AU-2FA, UM-PROFILE
-- DM-IMPORT → DM-EXPORT, RPT-GENERATE
-
-## Implementation Order
-1. AU-LOGIN (foundation)
-2. DM-IMPORT (core functionality)
-3. UM-PROFILE (user experience)
-```
-
-Save as `claudify/[module]/features-[prd].md`
+## Output
+Use Features template from `_shared/file-formats.md`
+Save following naming standards in `_shared/vibe-standards.md`
 
 ## Key Principles
 - Challenge assumptions constructively
@@ -112,7 +62,8 @@ Save as `claudify/[module]/features-[prd].md`
 - Keep descriptions concise (<60 chars)
 - Focus on WHAT, not HOW
 
-## Standards References
-- Python Standards: `_shared/python-standards.md`
-- Testing Patterns: `_shared/testing-standards.md`
-- File Formats: `_shared/file-formats.md`
+## Standards & References
+- **File Formats**: `_shared/file-formats.md` - All document templates
+- **VIBE Standards**: `_shared/vibe-standards.md` - Naming and organization
+- **Python Standards**: `_shared/python-standards.md` - Code quality requirements
+- **Testing Standards**: `_shared/testing-standards.md` - Testing patterns and TDD

@@ -10,23 +10,26 @@
 
 ## Technology Stack
 - **Web/CLI**: FastAPI (REST), Typer (CLI), Rich (terminal - no print())
-- **Data/Validation**: Pydantic 2.10+, DynaConf (config), SQLAlchemy 2.0+ (ORM)
+- **Data/Validation**: Pydantic 2.10+, DynaConf (config)
 - **Async**: asyncpg/motor (DB drivers), httpx (HTTP client)
 - **Development**: pytest, loguru (logging), icecream (debug - auto-removed in prod)
 
 ## Mandatory Code Standards
 
 ### ✅ ALWAYS
+- Write Ruff compliant code always so that ruff fix is not required later
 - `from __future__ import annotations` first line after docstring
 - Return types on ALL functions: `-> ReturnType`
 - Use `str | None` not `Optional[str]`, `list[str]` not `List[str]`
-- Single quotes for strings
+- Double quotes for strings
 - Keyword-only args after `*,`
 - Chain exceptions: `except E as e: raise NewE(msg) from e`
 - Assign error messages to variables before raising
+- For debugging purpose use icecreams than prints
 
 ### ❌ NEVER
 - `print()` - use `console.print()`
+- Mix data and code. Refactor configs/data out
 - Missing return types
 - `raise` without `from e`
 - Functions > 50 lines

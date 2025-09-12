@@ -11,37 +11,11 @@ Ask 3-5 focused questions per batch, progressing from broad to specific:
 - **Features & Scope**: Key functionality, user stories, boundaries  
 - **Implementation**: Technical needs, timeline, success metrics
 
-### 2. PRD Structure
-```markdown
-# PRD: [Feature Name]
-
-## Overview
-Problem statement and solution approach
-
-## Goals
-- Specific, measurable objectives
-
-## User Stories
-As a [user], I want [action] so that [benefit]
-
-## Requirements
-1. [REQ-001] Description
-2. [REQ-002] Description
-
-## Out of Scope
-- What this will NOT include
-
-## Success Metrics
-- Measurable outcomes
-
-## Open Questions
-- Unresolved items
-```
+### 2. PRD Creation
+Use the standard PRD template from `_shared/file-formats.md`
 
 ### 3. Output
-Save as `claudify/[module]/prd-[feature].md`
-- Create module folder under claudify if it doesn't exist
-- All module-related PRDs, specs, and tasks go in this folder
+Save following naming standards in `_shared/vibe-standards.md`
 
 ## Key Principles
 - Ask one question at a time, not complex lists
@@ -49,7 +23,8 @@ Save as `claudify/[module]/prd-[feature].md`
 - Be explicit and unambiguous
 - Focus on WHAT, not HOW
 
-## Standards References
-- Python Standards: `_shared/python-standards.md`
-- Testing Patterns: `_shared/testing-standards.md`
-- File Formats: `_shared/file-formats.md`
+## Standards & References
+- **File Formats**: `_shared/file-formats.md` - All document templates
+- **VIBE Standards**: `_shared/vibe-standards.md` - Naming and organization
+- **Python Standards**: `_shared/python-standards.md` - Code quality requirements
+- **Testing Standards**: `_shared/testing-standards.md` - Testing patterns and TDD

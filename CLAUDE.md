@@ -6,7 +6,7 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 VIBE (Versatile Intelligence-Based Engineering) is a structured development workflow system for AI-assisted software development through systematic PRD creation, feature extraction, task generation, and implementation.
 
-**Important**: All VIBE documentation and progress files are stored in `{PROJECT_ROOT}/claudify/{module}/` folders to keep code directories clean.
+**Important**: All VIBE documentation and progress files are stored in `{PROJECT_ROOT}/{module}/docs/` folders to keep code directories clean.
 
 ## Quick Commands
 
@@ -30,9 +30,9 @@ VIBE (Versatile Intelligence-Based Engineering) is a structured development work
     - `python/` - Python project templates (mypy.ini, pyproject.toml, ruff.toml)
     - `vscode/` - VSCode settings and extensions
     - `git/` - Git configuration
-- **Project**: `{PROJECT_ROOT}/claudify/`
-  - `claudify/{module}/` - Module-specific PRDs, features, tasks, and progress files
-  - All VIBE documentation stays in claudify to avoid polluting code folders
+- **Project**: `{PROJECT_ROOT}/{module}/docs/`
+  - `{module}/docs/` - Module-specific PRDs, features, tasks, and progress files
+  - All VIBE documentation stays in docs/ folders to avoid polluting code folders
 
 ## Core Guidelines
 

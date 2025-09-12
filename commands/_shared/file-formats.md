@@ -28,7 +28,7 @@ As a [user], I want [action] so that [benefit]
 - Unresolved items
 ```
 
-**Save as**: `claudify/[module]/prd-[feature].md`
+**Save as**: `[module]/docs/prd-[feature].md`
 
 ## Features Template
 
@@ -68,7 +68,7 @@ As a [user], I want [action] so that [benefit]
 3. UM-PROFILE (user experience)
 ```
 
-**Save as**: `claudify/[module]/features-[prd].md`
+**Save as**: `[module]/docs/feat-[prd].md`
 
 ## Task List Template
 
@@ -111,7 +111,7 @@ As a [user], I want [action] so that [benefit]
 - See `_shared/testing-standards.md` for patterns
 ```
 
-**Save as**: `claudify/[module]/tasks-[prd].md`
+**Save as**: `[module]/docs/tasks-[prd].md`
 
 ## Module Documentation Template
 
@@ -167,7 +167,7 @@ pytest tests/test_module.py
 - Any deprecations or pending changes
 ```
 
-**Save as**: `claudify/[module]/README.md`
+**Save as**: `[module]/docs/README.md`
 
 ## Analysis Template
 
@@ -236,14 +236,17 @@ Use meaningful, consistent prefixes:
 
 ### VIBE Documentation Structure
 ```
-claudify/
-├── [module]/           # Per-module documentation
-│   ├── README.md       # Module overview
-│   ├── prd-*.md        # Product requirements
-│   ├── features-*.md   # Feature specifications
-│   ├── tasks-*.md      # Implementation tasks
-│   └── API.md          # API documentation
-└── README.md           # Project overview
+project/
+├── README.md           # Project root overview
+├── [module]/           # Module folder
+│   ├── docs/           # Per-module documentation
+│   │   ├── README.md   # Module overview
+│   │   ├── prd-*.md    # Product requirements
+│   │   ├── feat-*.md # Feature specifications
+│   │   ├── tasks-*.md  # Implementation tasks
+│   │   └── API.md      # API documentation
+│   └── [module code files]
+└── [other modules]/
 ```
 
 ### Analysis Files

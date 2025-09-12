@@ -6,7 +6,8 @@
       "Read(//Users/rrp/dev/xds/**)",
       "Bash(git commit:*)",
       "Bash(tree:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(ruff check:*)"
     ],
     "additionalDirectories": [
       "/private/tmp/test_project",

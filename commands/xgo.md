@@ -6,7 +6,7 @@ Execute tasks from task list with structured workflow, testing, and commit disci
 ## Process
 
 ### 1. Task Selection
-- Load tasks from `claudify/[module]/tasks-*.md`
+- Load tasks from `[module]/docs/tasks-*.md`
 - Show next incomplete task
 - Get user confirmation to proceed
 
@@ -111,9 +111,10 @@ def test_multiple_users():
 ```
 
 ## Output
-Updates `claudify/[module]/tasks-*.md` with progress
+Updates `[module]/docs/tasks-*.md` with progress
 
-## Standards References
-- Python Standards: `_shared/python-standards.md`
-- Testing Patterns: `_shared/testing-standards.md`
-- File Formats: `_shared/file-formats.md`
+## Standards & References
+- **File Formats**: `_shared/file-formats.md` - All document templates
+- **VIBE Standards**: `_shared/vibe-standards.md` - Naming and organization
+- **Python Standards**: `_shared/python-standards.md` - Code quality requirements
+- **Testing Standards**: `_shared/testing-standards.md` - Testing patterns and TDD

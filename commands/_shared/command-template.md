@@ -77,7 +77,7 @@ All commands must use the project sandbox for temporary files:
 - **TDD**: Test-Driven Development (RED-GREEN-REFACTOR)
 
 ### File Path Standards
-- **VIBE docs**: `claudify/[module]/[type]-[name].md`
+- **VIBE docs**: `[module]/docs/[type]-[name].md`
 - **Analysis files**: `vibe/analysis-[topic].md`
 - **Standards**: `_shared/[standard-name].md`
 
@@ -97,10 +97,11 @@ All commands must use the project sandbox for temporary files:
 ### Required References
 All commands should include this footer:
 ```markdown
-## Standards References
-- Python Standards: `_shared/python-standards.md`
-- Testing Patterns: `_shared/testing-standards.md`  
-- File Formats: `_shared/file-formats.md`
+## Standards & References
+- **File Formats**: `_shared/file-formats.md` - All document templates
+- **VIBE Standards**: `_shared/vibe-standards.md` - Naming and organization
+- **Python Standards**: `_shared/python-standards.md` - Code quality requirements
+- **Testing Standards**: `_shared/testing-standards.md` - Testing patterns and TDD
 ```
 
 ## Command-Specific Sections

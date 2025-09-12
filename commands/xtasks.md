@@ -65,60 +65,9 @@ Once parent tasks approved:
 5. **Note dependencies** between sub-tasks
 6. **Follow RED-GREEN-REFACTOR** cycle explicitly
 
-## Output Format
-
-```markdown
-# Tasks: [Feature Name]
-
-## Time Estimation Guidelines
-- **Solo**: Developer working independently
-- **Claude**: Developer using Claude Code
-- **Simple [S]**: Solo: 15-45m | Claude: 10-20m
-- **Medium [M]**: Solo: 45m-2h | Claude: 20m-1h  
-- **Complex [C]**: Solo: 2-4h | Claude: 1-2h
-
-## Context & Decisions
-- Architecture: [Approach]
-- Testing: TDD with [framework] - tests first, always
-- Test Data: factory-boy for fixture generation
-- Standards: See `_shared/python-standards.md`
-- Test Patterns: See `_shared/testing-standards.md`
-
-## Tasks
-
-### Phase 1: [Phase Name]
-- [ ] 1.0 [Parent Task] [Complexity]
-  - [ ] 1.1 [Sub-task] [S] | Solo: 30m | Claude: 15m
-  - [ ] 1.2 [Sub-task] [M] | Solo: 1h | Claude: 30m
-  - [ ] 1.3 [Sub-task] [S] | Solo: 20m | Claude: 10m
-
-### Phase 2: [Phase Name]  
-- [ ] 2.0 [Parent Task] [Complexity]
-  - [ ] 2.1 [Sub-task] [M] | Solo: 1.5h | Claude: 45m
-  - [ ] 2.2 [Sub-task] [C] | Solo: 3h | Claude: 1.5h
-
-### Phase 3: Demo & CLI Implementation (MANDATORY)
-- [ ] 3.0 Create exhaustive demo [M]
-  - [ ] 3.1 Write demo tests first [S]
-  - [ ] 3.2 Implement comprehensive usage examples [M]
-  - [ ] 3.3 Cover error handling scenarios [S]
-
-- [ ] 4.0 Build CLI interface [M]
-  - [ ] 4.1 Write CLI tests first [S]
-  - [ ] 4.2 Design short, memorable commands [S]
-  - [ ] 4.3 Implement core CLI functionality [M]
-
-## Dependencies
-- Task 1.0 must complete before 2.0
-- Demo and CLI are mandatory deliverables
-
-## TDD Cycle for Each Task
-1. **RED**: Write failing test first
-2. **GREEN**: Write minimal code to pass
-3. **REFACTOR**: Clean up, optimize, simplify names
-```
-
-**Save as**: `claudify/[module]/tasks-[prd].md`
+## Output
+Use Tasks template from `_shared/file-formats.md`
+Save following naming standards in `_shared/vibe-standards.md`
 
 ## Key Principles
 - Use deep thinking for complex analysis
@@ -137,7 +86,8 @@ Once parent tasks approved:
 4. **Demo Planning**: "What scenarios should the exhaustive demo cover?"
 5. **CLI Design**: "Which commands would be most useful? Keep them short!"
 
-## Standards References
-- Python Standards: `_shared/python-standards.md`
-- Testing Patterns: `_shared/testing-standards.md`
-- File Formats: `_shared/file-formats.md`
+## Standards & References
+- **File Formats**: `_shared/file-formats.md` - All document templates
+- **VIBE Standards**: `_shared/vibe-standards.md` - Naming and organization
+- **Python Standards**: `_shared/python-standards.md` - Code quality requirements
+- **Testing Standards**: `_shared/testing-standards.md` - Testing patterns and TDD
