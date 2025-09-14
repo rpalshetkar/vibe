@@ -45,13 +45,12 @@ tests/
 │   ├── user_factory.py
 │   └── product_factory.py
 ├── [module1]/                     # Mirror src/module1/
-│   ├── unit/
-│   │   └── test_service.py       
-│   └── integration/
-│       └── test_service.py
-└── [module2]/                     # Mirror src/module2/
-    └── unit/
-        └── test_handlers.py
+│   └── test_service.py            # All tests in module folder
+├── [module2]/                     # Mirror src/module2/
+│   └── test_handlers.py           # All tests in module folder
+└── integration/                   # Integration tests only
+    ├── test_full_workflow.py      # End-to-end integration tests
+    └── test_api_integration.py
 ```
 
 ### Test Types & Markers
@@ -61,7 +60,7 @@ def test_user_service_unit(mock_user_repository):
     """Unit test with mocked dependencies."""
     pass
 
-@pytest.mark.integration  
+@pytest.mark.integration
 def test_user_service_integration(real_user_repository):
     """Integration test with real database."""
     pass
@@ -74,9 +73,11 @@ def test_user_service_performance():
 
 **Run commands:**
 ```bash
-pytest -m unit              # Only unit tests (fast, mocked)
-pytest -m integration       # Only integration tests (slower, real)
-pytest -m "not integration" # All tests except integration
+pytest -m unit                    # Only unit tests (fast, mocked)
+pytest -m integration             # Only integration tests (slower, real)
+pytest -m "not integration"       # All tests except integration
+pytest tests/integration/         # Run only integration test folder
+pytest tests/module1/             # Run tests for specific module
 ```
 
 ## Smart Mock/Real Object Control
@@ -108,8 +109,8 @@ def test_user_validation(user_service, input_data, expected):
 ### Basic Test Generation
 ```bash
 /xtests [file_or_module]        # Analyze and generate comprehensive tests
-/xtests --unit [file]           # Generate unit tests with mocks
-/xtests --integration [module]  # Generate integration tests with real objects
+/xtests --unit [file]           # Generate unit tests with mocks in module folder
+/xtests --integration [module]  # Generate integration tests in tests/integration/
 /xtests --factories [model]     # Generate factory-boy test data factories
 ```
 
@@ -138,16 +139,39 @@ grep -r "@pytest.mark.parametrize.*user" tests/
 5. Only generate truly missing test coverage
 
 ## Key Rules
-- **Mirror Structure**: tests/ follows src/ exactly
+- **Mirror Structure**: tests/[module]/ follows src/[module]/ exactly (no unit/integration subfolders)
 - **Zero Hardcoding**: Factory-boy for all test data (see `_shared/testing-standards.md`)
 - **Parameterize Similar**: Group test variations, don't duplicate
-- **Check First**: Never duplicate existing tests  
-- **Marker-Based**: Unit/integration via pytest markers
+- **Check First**: Never duplicate existing tests
+- **Marker-Based**: Unit/integration via pytest markers (not folder structure)
+- **Integration Separation**: End-to-end integration tests go in tests/integration/ folder
 - **Coverage Focused**: Generate only missing test coverage
+
+## Test Structure Guidelines
+
+### Module Tests (tests/[module]/)
+- **All module-specific tests** go directly in tests/[module]/ folder
+- **No unit/integration subfolders** - use pytest markers instead
+- **Mix unit and integration tests** in same file when logical
+- **File naming**: test_[source_file_name].py
+
+### Integration Tests (tests/integration/)
+- **End-to-end workflows** that span multiple modules
+- **External service integrations** (databases, APIs, file systems)
+- **Full system tests** that require complete setup
+- **Cross-module interaction tests**
+
+### Example Structure
+```
+src/user/service.py         → tests/user/test_service.py
+src/user/repository.py      → tests/user/test_repository.py
+src/auth/handlers.py        → tests/auth/test_handlers.py
+End-to-end workflows        → tests/integration/test_user_workflow.py
+```
 
 ## Coverage Standards
 - **Line coverage**: 90%+
-- **Branch coverage**: 80%+  
+- **Branch coverage**: 80%+
 - **Critical paths**: 100%
 - Generate tests only for uncovered code paths
 
