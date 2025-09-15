@@ -64,6 +64,20 @@ Ask targeted questions to validate approach:
 
 ## Open Questions
 - Items needing clarification
+
+## Files/Folders Affected
+```
+project-root/
+├── src/
+│   ├── modified_file.py
+│   └── new_module/
+│       └── __init__.py
+├── tests/
+│   └── test_new_feature.py
+└── docs/
+    └── analysis/
+        └── topic-analysis.md
+```
 ```
 
 Save as `sandbox/analysis/[topic]-analysis.md`

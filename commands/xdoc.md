@@ -305,7 +305,14 @@ pytest tests/test_module.py
    - Updates references ensuring project-wide consistency
    - Generates/updates {module}/docs/README.md with project-aware context
    - Creates/updates API.md aligned with project standards
-6. AI: "Documentation complete:
+6. AI: Cascades updates to parent documentation:
+   - Scans parent directories up to project root
+   - Updates parent README files with module integration points
+   - Refreshes system-wide architecture diagrams
+   - Updates cross-module dependency mappings
+   - Maintains overall project coherence view
+   - Ensures navigation links stay current
+7. AI: "Documentation complete:
    - Analyzed project-level architecture and goals
    - Assessed 6 modules against project vision
    - Refreshed 8 PRDs with project alignment check
@@ -315,7 +322,10 @@ pytest tests/test_module.py
    - Created technical diagrams showing project integration
    - Analyzed plugin potential within project ecosystem
    - Provided project-context critical review of 18 decisions
-   - Ensured project-wide consistency across 25 references"
+   - Ensured project-wide consistency across 25 references
+   - Updated 3 parent READMEs with integration points
+   - Refreshed system-wide architecture views
+   - Maintained cross-module navigation coherence"
 ```
 
 ### 8. Module-Specific Considerations
@@ -334,7 +344,62 @@ pytest tests/test_module.py
 - **Resource Allocation**: Whether development effort aligns with project priorities
 - **Evolution Assessment**: How project architecture has evolved vs original vision
 
-### 10. Cross-Module Documentation
+### 10. Cascading Documentation Updates
+**Parent documentation integration when subfolder docs updated:**
+
+#### Parent README Integration
+When any `{module}/docs/` folder is updated, cascade updates to parent levels:
+- **Project Root README**: Add/update module integration points section
+- **Module Parent README** (if nested): Update sub-module references
+- **Overall System View**: Maintain global architecture coherence
+
+#### Integration Points Mapping
+```mermaid
+graph TB
+    subgraph "Documentation Hierarchy"
+        A[Project Root README.md] 
+        B[Module A/README.md]
+        C[Module A/docs/README.md]
+        D[Module B/docs/README.md]
+        E[Module C/Sub1/docs/README.md]
+        F[Module C/README.md]
+    end
+    
+    C --> B
+    D --> A  
+    E --> F
+    F --> A
+    B --> A
+    
+    subgraph "Update Cascade"
+        G[Subfolder Updated] --> H[Parent Module Updated]
+        H --> I[Root Project Updated]
+    end
+```
+
+#### Parent Documentation Sections to Update
+**Project Root README.md additions:**
+- **Module Integration Map**: Visual overview of all modules and their relationships
+- **System Architecture**: High-level view showing how modules connect
+- **API Surface**: Consolidated view of public APIs across modules
+- **Cross-Module Dependencies**: Dependency graph with integration points
+- **Development Status**: Overall project health and module completion status
+
+**Module Parent README.md additions:**
+- **Submodule Navigation**: Links to all submodule documentation
+- **Integration Summary**: How submodules work together within this module
+- **Shared Resources**: Common utilities, types, or patterns used by submodules
+- **Testing Strategy**: How submodules are tested together
+
+#### Automatic Update Triggers
+When `/xdoc` updates any `{module}/docs/`:
+1. **Scan for parent directories** up to project root
+2. **Update parent README files** with new integration information
+3. **Refresh cross-references** in all parent documentation
+4. **Update navigation links** to maintain consistency
+5. **Regenerate system-wide diagrams** showing module relationships
+
+### 11. Cross-Module Documentation
 **Create project-wide overview with coherence assessment:**
 - Generate project root `README.md` with architectural coherence analysis
 - Show module dependency graph aligned with intended architecture
@@ -349,6 +414,9 @@ pytest tests/test_module.py
 - **Auto-organize**: Create folder structure automatically
 - **Update smartly**: Fix technical details, preserve descriptions
 - **Comprehensive**: Cover all significant code per module
+- **Cascading updates**: Parent documentation reflects subfolder changes
+- **Integration mapping**: Maintain system-wide view of module relationships
+- **Navigation coherence**: Keep cross-references current across all levels
 
 ## Standards & References
 - **File Formats**: `_shared/file-formats.md` - All document templates
@@ -407,6 +475,10 @@ For each discovered module, create/update:
   - Module contribution mapping to project goals
   - Project evolution assessment and recommendations
   - Overall architectural health and alignment review
+  - **Module Integration Map**: Visual navigation of all modules
+  - **System Dependencies**: Cross-module dependency graph
+  - **API Surface Overview**: Consolidated public API reference
+  - **Integration Points**: How modules connect and communicate
 
 ## Module Detection Rules
 **Include as modules:**

@@ -1,0 +1,311 @@
+#!/bin/bash
+
+# /xux - UX Development Command
+# Creates and manages modern UI interfaces with proper error handling and best practices
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VIBE_ROOT="$(dirname "$SCRIPT_DIR")"
+UI_RULES_FILE="$VIBE_ROOT/devrules/uirules.md"
+
+show_help() {
+    cat << EOF
+🎨 /xux - UX Development Command
+
+USAGE:
+    /xux [command] [options]
+
+COMMANDS:
+    init        Initialize modern UI setup (Tailwind, Framer Motion, etc.)
+    check       Check current UI setup for common issues
+    fix         Fix common UI problems (CSS imports, error boundaries)
+    rules       Show UI development rules and best practices
+    validate    Validate current UI implementation
+
+EXAMPLES:
+    /xux init           # Set up modern UI stack
+    /xux check          # Check for common UI issues
+    /xux fix            # Fix detected problems
+    /xux rules          # View UI development guidelines
+
+For detailed UI rules, see: $UI_RULES_FILE
+EOF
+}
+
+check_ui_setup() {
+    echo "🔍 Checking UI setup..."
+
+    local issues=0
+    local project_root="$(pwd)"
+
+    # Check for essential files
+    if [ ! -f "$project_root/tailwind.config.js" ]; then
+        echo "❌ Missing tailwind.config.js"
+        ((issues++))
+    else
+        echo "✅ tailwind.config.js found"
+    fi
+
+    if [ ! -f "$project_root/postcss.config.js" ]; then
+        echo "❌ Missing postcss.config.js"
+        ((issues++))
+    else
+        echo "✅ postcss.config.js found"
+    fi
+
+    # Check CSS import order in index.css
+    if [ -f "$project_root/index.css" ] || [ -f "$project_root/src/index.css" ]; then
+        local css_file="$project_root/index.css"
+        [ -f "$project_root/src/index.css" ] && css_file="$project_root/src/index.css"
+
+        if head -10 "$css_file" | grep -q "@import" && head -10 "$css_file" | grep -q "@tailwind"; then
+            local import_line=$(head -10 "$css_file" | grep -n "@import" | head -1 | cut -d: -f1)
+            local tailwind_line=$(head -10 "$css_file" | grep -n "@tailwind" | head -1 | cut -d: -f1)
+
+            if [ "$import_line" -gt "$tailwind_line" ]; then
+                echo "❌ CSS import order incorrect (@import must come before @tailwind)"
+                ((issues++))
+            else
+                echo "✅ CSS import order correct"
+            fi
+        else
+            echo "✅ CSS structure looks good"
+        fi
+    else
+        echo "❌ No index.css file found"
+        ((issues++))
+    fi
+
+    # Check package.json for essential packages
+    if [ -f "$project_root/package.json" ]; then
+        if ! grep -q '"tailwindcss"' "$project_root/package.json"; then
+            echo "❌ Tailwind CSS not installed"
+            ((issues++))
+        else
+            echo "✅ Tailwind CSS installed"
+        fi
+
+        if ! grep -q '"framer-motion"' "$project_root/package.json"; then
+            echo "⚠️  Framer Motion not installed (recommended for animations)"
+        else
+            echo "✅ Framer Motion installed"
+        fi
+    fi
+
+    if [ $issues -eq 0 ]; then
+        echo "🎉 UI setup looks good! No issues found."
+    else
+        echo "🚨 Found $issues issues. Run '/xux fix' to resolve them."
+    fi
+}
+
+fix_ui_issues() {
+    echo "🔧 Fixing UI issues..."
+
+    local project_root="$(pwd)"
+
+    # Fix CSS import order
+    if [ -f "$project_root/index.css" ] || [ -f "$project_root/src/index.css" ]; then
+        local css_file="$project_root/index.css"
+        [ -f "$project_root/src/index.css" ] && css_file="$project_root/src/index.css"
+
+        echo "📝 Checking CSS import order in $css_file"
+
+        # Create backup
+        cp "$css_file" "$css_file.backup"
+
+        # Fix import order if needed
+        if head -10 "$css_file" | grep -q "@import" && head -10 "$css_file" | grep -q "@tailwind"; then
+            echo "🔄 Fixing CSS import order..."
+
+            # Extract imports and tailwind directives
+            local imports=$(grep "^@import" "$css_file")
+            local tailwind_base=$(grep "^@tailwind base" "$css_file")
+            local tailwind_components=$(grep "^@tailwind components" "$css_file")
+            local tailwind_utilities=$(grep "^@tailwind utilities" "$css_file")
+
+            # Create new CSS file with correct order
+            {
+                echo "/* Imports must come first */"
+                echo "$imports"
+                echo ""
+                echo "$tailwind_base"
+                echo "$tailwind_components"
+                echo "$tailwind_utilities"
+                echo ""
+                grep -v "^@import\|^@tailwind" "$css_file"
+            } > "$css_file.new"
+
+            mv "$css_file.new" "$css_file"
+            echo "✅ Fixed CSS import order"
+        fi
+    fi
+
+    # Create PostCSS config if missing
+    if [ ! -f "$project_root/postcss.config.js" ]; then
+        echo "📝 Creating postcss.config.js"
+        cat > "$project_root/postcss.config.js" << 'EOF'
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+EOF
+        echo "✅ Created postcss.config.js"
+    fi
+
+    echo "🎉 UI fixes complete! Restart your dev server to see changes."
+}
+
+init_ui_setup() {
+    echo "🚀 Initializing modern UI setup..."
+
+    local project_root="$(pwd)"
+
+    echo "📦 Installing essential UI packages..."
+
+    # Check if package.json exists
+    if [ ! -f "$project_root/package.json" ]; then
+        echo "❌ No package.json found. Please run this in a Node.js project."
+        exit 1
+    fi
+
+    # Install packages based on package manager
+    if [ -f "$project_root/pnpm-lock.yaml" ]; then
+        pnpm add -D tailwindcss postcss autoprefixer
+        pnpm add framer-motion @radix-ui/react-select lucide-react
+    elif [ -f "$project_root/yarn.lock" ]; then
+        yarn add -D tailwindcss postcss autoprefixer
+        yarn add framer-motion @radix-ui/react-select lucide-react
+    else
+        npm install -D tailwindcss postcss autoprefixer
+        npm install framer-motion @radix-ui/react-select lucide-react
+    fi
+
+    echo "✅ Packages installed"
+
+    # Initialize Tailwind if needed
+    if [ ! -f "$project_root/tailwind.config.js" ]; then
+        npx tailwindcss init -p
+        echo "✅ Tailwind initialized"
+    fi
+
+    # Create proper CSS structure
+    local css_file="$project_root/src/index.css"
+    [ ! -d "$project_root/src" ] && css_file="$project_root/index.css"
+
+    cat > "$css_file" << 'EOF'
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+}
+EOF
+
+    echo "✅ CSS structure created"
+    echo "🎉 Modern UI setup complete!"
+}
+
+show_rules() {
+    if [ -f "$UI_RULES_FILE" ]; then
+        cat "$UI_RULES_FILE"
+    else
+        echo "📋 UI Rules file not found. Creating it..."
+        # This will be created by the companion script
+        echo "Run this command from the VIBE repository root to initialize UI rules."
+    fi
+}
+
+validate_ui() {
+    echo "🔍 Validating UI implementation..."
+
+    local project_root="$(pwd)"
+    local score=0
+    local max_score=10
+
+    # Check for React components
+    if find "$project_root" -name "*.tsx" -o -name "*.jsx" | grep -q .; then
+        echo "✅ React components found (+1)"
+        ((score++))
+    fi
+
+    # Check for proper TypeScript usage
+    if [ -f "$project_root/tsconfig.json" ]; then
+        echo "✅ TypeScript configuration found (+1)"
+        ((score++))
+    fi
+
+    # Check for error boundaries
+    if find "$project_root" -name "*.tsx" -o -name "*.jsx" -exec grep -l "ErrorBoundary\|componentDidCatch" {} \; | grep -q .; then
+        echo "✅ Error boundaries implemented (+1)"
+        ((score++))
+    else
+        echo "⚠️  No error boundaries found (-1)"
+    fi
+
+    # Check for modern CSS usage
+    if find "$project_root" -name "*.css" -exec grep -l "@apply\|@layer" {} \; | grep -q .; then
+        echo "✅ Modern CSS practices found (+1)"
+        ((score++))
+    fi
+
+    # Check for animations
+    if find "$project_root" -name "*.tsx" -o -name "*.jsx" -exec grep -l "framer-motion\|transition\|animate" {} \; | grep -q .; then
+        echo "✅ Animations implemented (+1)"
+        ((score++))
+    fi
+
+    # Additional checks...
+    [ -f "$project_root/tailwind.config.js" ] && { echo "✅ Tailwind configured (+1)"; ((score++)); }
+    [ -f "$project_root/postcss.config.js" ] && { echo "✅ PostCSS configured (+1)"; ((score++)); }
+
+    echo ""
+    echo "📊 UI Quality Score: $score/$max_score"
+
+    if [ $score -ge 8 ]; then
+        echo "🏆 Excellent! Your UI setup is production-ready."
+    elif [ $score -ge 6 ]; then
+        echo "👍 Good! A few improvements could make it even better."
+    elif [ $score -ge 4 ]; then
+        echo "⚠️  Needs improvement. Consider following UI best practices."
+    else
+        echo "🚨 Major issues detected. Run '/xux fix' and follow UI guidelines."
+    fi
+}
+
+# Main command logic
+case "${1:-}" in
+    "init")
+        init_ui_setup
+        ;;
+    "check")
+        check_ui_setup
+        ;;
+    "fix")
+        fix_ui_issues
+        ;;
+    "rules")
+        show_rules
+        ;;
+    "validate")
+        validate_ui
+        ;;
+    "help"|"-h"|"--help")
+        show_help
+        ;;
+    "")
+        show_help
+        ;;
+    *)
+        echo "❌ Unknown command: $1"
+        echo "Run '/xux help' for usage information."
+        exit 1
+        ;;
+esac
